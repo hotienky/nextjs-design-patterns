@@ -1,33 +1,11 @@
-import { useState, useEffect, memo } from 'react';
-import { subscribeToUsers, fetchAndUpdateUsers } from '@/operators/users.operator';
-import { User } from '@/types/user';
+import { ServerSidePageProps, User } from '@/types/user';
+import { memo } from 'react';
 
-const ObserverView: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Register Observer to update Users
-    const unsubscribe = subscribeToUsers({
-      update: (data: User[]) => {
-        setUsers(data);
-        setIsLoading(false);
-      },
-    });
-
-    // First data
-    fetchAndUpdateUsers().catch(err => {
-      setError(err instanceof Error ? err.message : 'Unknown error');
-      setIsLoading(false);
-    });
-
-    // Cleanup when component unmount
-    return () => unsubscribe();
-  }, []);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+const SingleTonView: React.FC<ServerSidePageProps> = ({ users }) => {
+  if (!users.length) {
+    return <div>No users found</div>;
+  }
 
   return (
     <ul>
@@ -38,4 +16,4 @@ const ObserverView: React.FC = () => {
   );
 };
 
-export default memo(ObserverView);
+export default memo(SingleTonView);

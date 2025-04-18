@@ -6,11 +6,11 @@ export default function Home() {
   const router = useRouter();
 
   const designPatterns = [
-    { name: "Singleton", description: "Ensures a class has only one instance and provides a global point of access.", route: "" },
-    { name: "Factory Method", description: "Defines an interface for creating objects, but lets subclasses alter the type of objects that will be created.", route: "" },
-    { name: "Observer", description: "Allows a subject to notify its observers automatically of any state changes, typically used for event handling systems.", route: "/observer" },
-    { name: "Strategy", description: "Allows a family of algorithms to be defined and encapsulated within a class, making them interchangeable.", route: "" },
-    { name: "Decorator", description: "Allows behavior to be added to an individual object, dynamically, without affecting the behavior of other objects from the same class.", route: "" }
+    { name: "Singleton", description: "Ensures a class has only one instance and provides a global point of access.", route: "singleton" },
+    { name: "Factory Method", description: "Defines an interface for creating objects, but lets subclasses alter the type of objects that will be created.", route: "factory-method" },
+    { name: "Observer", description: "Allows a subject to notify its observers automatically of any state changes, typically used for event handling systems.", route: "observer" },
+    { name: "Strategy", description: "Allows a family of algorithms to be defined and encapsulated within a class, making them interchangeable.", route: "strategy" },
+    { name: "Decorator", description: "Allows behavior to be added to an individual object, dynamically, without affecting the behavior of other objects from the same class.", route: "decorator" }
   ];
 
   return (

@@ -1,36 +1,42 @@
 // src/lib/observer.ts
-import { User } from '@/types/user';
-
-export interface Observer {
-  update(data: User[]): void;
+export interface Observer<T> {
+  update(data: T): void;
 }
 
-export interface Subject {
-  attach(observer: Observer): void;
-  detach(observer: Observer): void;
+export interface Subject<T> {
+  attach(observer: Observer<T>): void;
+  detach(observer: Observer<T>): void;
   notify(): void;
 }
 
-export class UserSubject implements Subject {
-  private observers: Observer[] = [];
-  private users: User[] = [];
+export class GenericSubject<T> implements Subject<T> {
+  private observers: Observer<T>[] = [];
+  private data: T;
 
-  attach(observer: Observer) {
+  constructor(initialData: T) {
+    this.data = initialData;
+  }
+
+  attach(observer: Observer<T>) {
     this.observers.push(observer);
   }
 
-  detach(observer: Observer) {
+  detach(observer: Observer<T>) {
     this.observers = this.observers.filter(obs => obs !== observer);
   }
 
   notify() {
     for (const observer of this.observers) {
-      observer.update(this.users);
+      observer.update(this.data);
     }
   }
 
-  setUsers(users: User[]) {
-    this.users = users;
+  setData(data: T) {
+    this.data = data;
     this.notify();
+  }
+
+  getData(): T {
+    return this.data;
   }
 }
